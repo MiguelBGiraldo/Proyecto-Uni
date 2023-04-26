@@ -1,9 +1,6 @@
 package co.edu.uniquindio.proyecto.modelo;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,19 +14,19 @@ import java.util.List;
 @NoArgsConstructor
 public class Usuario extends Persona implements Serializable {
 
-    @Column(nullable = false, length = 100)
-    private String email;
-
     @Column(nullable = false, unique = true, length = 12)
     private String telefono;
+
+    @Column(nullable = false, length = 100)
+    private String direccion;
 
 
     //Aca va la referencia
     @OneToMany(mappedBy = "usuario")
     private List<Producto> productos;
 
-    @ManyToMany
-    private List<Producto> favoritos;
+    @OneToMany(mappedBy = "codigoUsuario")
+    private List<Favorito> favoritos;
 
     @OneToMany(mappedBy = "usuario")
     private List<Transaccion> transacciones;
@@ -51,4 +48,8 @@ public class Usuario extends Persona implements Serializable {
 
     @OneToMany(mappedBy = "usuario")
     private List<Mensaje> mensaje;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private  EstadoUsuario estado;
 }

@@ -27,7 +27,8 @@ public class Transaccion implements Serializable {
     private double valorTotal;
 
     @Column(nullable = false)
-    private int metodoPago;
+    //@Enumerated(EnumType.STRING)
+    private MetodoPago metodoPago;
 
     @ManyToOne
     private Usuario usuario;

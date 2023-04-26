@@ -1,4 +1,4 @@
-package co.edu.uniquindio.proyecto.services;
+package co.edu.uniquindio.proyecto.services.interfaces;
 
 import co.edu.uniquindio.proyecto.dto.sesion.SesionDTO;
 import co.edu.uniquindio.proyecto.dto.token.TokenDTO;

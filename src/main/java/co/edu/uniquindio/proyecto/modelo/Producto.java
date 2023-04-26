@@ -9,6 +9,7 @@ import org.springframework.cglib.core.Local;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -38,16 +39,16 @@ public class Producto implements Serializable {
     private  double precio;
 
     @Column(nullable = false)
-    private LocalDate fechaCreado;
+    private LocalDateTime fechaCreado;
 
     @Column(nullable = false)
-    private LocalDate fechaLimite;
+    private LocalDateTime fechaLimite;
 
     @ManyToOne
     private Usuario usuario;
 
-    @ManyToMany
-    private List<Usuario> favoritos;
+    @OneToMany(mappedBy = "codigoProducto")
+    private List<Favorito> favoritos;
 
     @OneToMany(mappedBy = "codigoProducto")
     private List<Comentario> comentarios;
@@ -57,12 +58,16 @@ public class Producto implements Serializable {
 
     @ElementCollection
     @Column(nullable = false)
-    private Map<String,String> imagen;
+    private List<String> imagen;
 
     @ElementCollection
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private  List<Categoria> categoria;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private  Estado estado;
 
     @OneToMany(mappedBy = "codigoProducto")
     private List<DetalleTransaccion> detalleTransaccion;

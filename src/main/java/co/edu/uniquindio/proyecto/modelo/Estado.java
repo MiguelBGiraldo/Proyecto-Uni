@@ -5,5 +5,6 @@ public enum Estado {
     ESPERA,
     ACEPTADO,
     RECHAZADO,
+    ELIMINADO,
 
 }

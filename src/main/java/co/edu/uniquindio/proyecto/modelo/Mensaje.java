@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -27,15 +28,14 @@ public class Mensaje implements Serializable {
     private Chat chat;
 
     @Column(nullable = false)
-    private LocalDate fecha;
+    private LocalDateTime fecha;
 
     @Column(nullable = false)
     private String mensaje;
 
-    @ElementCollection
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private List<EstadoMensaje> estado;
+    private EstadoMensaje estado;
 
     @ManyToOne
     private Usuario usuario;
