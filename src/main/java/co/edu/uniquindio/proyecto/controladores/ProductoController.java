@@ -43,6 +43,12 @@ public class ProductoController {
         return ResponseEntity.status(HttpStatus.OK).body(new MensajeDTO(HttpStatus.OK,false,productoService.getProduct(codigo)));
     }
 
+    @GetMapping("/listar/listar")
+    public ResponseEntity<MensajeDTO> obtenerTodosLosProductos() throws Exception{
+
+        return ResponseEntity.status(HttpStatus.OK).body(new MensajeDTO(HttpStatus.OK,false,productoService.listarProductos()));
+    }
+
     @PutMapping("/actualizar/{codigo}/{unidades}")
     public ResponseEntity<MensajeDTO> actualizarProductoCantidad(@PathVariable int codigo, @Valid @PathVariable int unidades) throws Exception{
         return ResponseEntity.status(HttpStatus.OK).body(new MensajeDTO(HttpStatus.OK,false,productoService.updateByAmount(codigo,unidades)));
@@ -102,4 +108,18 @@ public class ProductoController {
     }
 
 
+    /*@GetMapping("productosComprados/{codigo}")
+    public ResponseEntity<MensajeDTO> obtenerProductosComprados(@PathVariable int codigo) throws Exception{
+        return ResponseEntity.status(HttpStatus.OK).body(new MensajeDTO(HttpStatus.OK,false,productoService.listarProductosComprados(codigo)));
+    }
+
+    @GetMapping("/productosCategorias")
+    public ResponseEntity<MensajeDTO> obtenerProductosCategorias() throws Exception{
+        return ResponseEntity.status(HttpStatus.OK).body(new MensajeDTO(HttpStatus.OK,false,productoService.listarCantidadCategorias()));
+    }*/
+
+    /*@GetMapping("caroBarato/{categoria}")
+    public ResponseEntity<MensajeDTO> obtenerProductosCategoriasCaroBarato(Categoria categoria) throws Exception{
+        return ResponseEntity.status(HttpStatus.OK).body(new MensajeDTO(HttpStatus.OK,false,productoService.listarProductosCaroyBaratoCategoria(categoria)));
+    }*/
 }

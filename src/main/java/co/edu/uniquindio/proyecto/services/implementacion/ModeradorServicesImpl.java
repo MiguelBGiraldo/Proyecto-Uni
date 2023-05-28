@@ -48,11 +48,11 @@ public class ModeradorServicesImpl implements ModeradorService {
         productoModeradorRepo.save(productoModerador);
         productoService.actualizarEstado(moderadorDTO.getCodigo_producto(),moderadorDTO.getEstado());
 
-        EmailDTO emailDTO = new EmailDTO();
-        emailDTO.setDestinatario(usuarioService.obtenerCorreoPorID(productoService.obtenerUsuario(moderadorDTO.getCodigo_producto())));
-        emailDTO.setCuerpo(moderadorDTO.getMotivo());
-        emailDTO.setAsunto("Cambio estado producto");
-        emailService.enviarEmail(emailDTO);
+//        EmailDTO emailDTO = new EmailDTO();
+//        emailDTO.setDestinatario(usuarioService.obtenerCorreoPorID(productoService.obtenerUsuario(moderadorDTO.getCodigo_producto())));
+//        emailDTO.setCuerpo(moderadorDTO.getMotivo());
+//        emailDTO.setAsunto("Cambio estado producto");
+//        emailService.enviarEmail(emailDTO);
         return true;
     }
 

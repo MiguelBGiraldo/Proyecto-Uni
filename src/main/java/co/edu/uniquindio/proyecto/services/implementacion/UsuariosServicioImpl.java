@@ -10,6 +10,7 @@ import co.edu.uniquindio.proyecto.modelo.Producto;
 import co.edu.uniquindio.proyecto.modelo.Usuario;
 import co.edu.uniquindio.proyecto.repositorios.ModeradorRepo;
 import co.edu.uniquindio.proyecto.repositorios.UsuarioRepo;
+import co.edu.uniquindio.proyecto.services.interfaces.ProductoService;
 import co.edu.uniquindio.proyecto.services.interfaces.UsuarioService;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotBlank;
@@ -181,4 +182,6 @@ public class UsuariosServicioImpl implements UsuarioService {
     public String obtenerCorreoPorID(int usuario){
         return usuarioRepo.obtenerCorreo(usuario);
     }
+
+
 }

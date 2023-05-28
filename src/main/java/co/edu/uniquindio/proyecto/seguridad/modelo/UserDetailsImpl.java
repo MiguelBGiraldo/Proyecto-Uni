@@ -18,6 +18,7 @@ import java.util.List;
 public class UserDetailsImpl implements UserDetails {
 
     private String username, password;
+    private int cedula;
     private Collection<? extends GrantedAuthority> authorities;
 
     public static UserDetailsImpl build(Persona user){
@@ -29,7 +30,7 @@ public class UserDetailsImpl implements UserDetails {
         } else if(user instanceof Moderador)
             authorities.add(new SimpleGrantedAuthority("MODERADOR"));
 
-        return new UserDetailsImpl(user.getEmail(), user.getPassword(), authorities);
+        return new UserDetailsImpl(user.getEmail(), user.getPassword(), user.getCedula(), authorities);
     }
 
     @Override
@@ -46,6 +47,8 @@ public class UserDetailsImpl implements UserDetails {
     public String getUsername(){
         return username;
     }
+
+    public int getCedula() { return cedula;}
 
     @Override
     public boolean isAccountNonExpired(){

@@ -1,5 +1,6 @@
 package co.edu.uniquindio.proyecto.services.interfaces;
 
+import co.edu.uniquindio.proyecto.dto.producto.ProductoResponseDTO;
 import co.edu.uniquindio.proyecto.dto.usuario.UsuarioDTO;
 import co.edu.uniquindio.proyecto.dto.usuario.UsuarioResponseDTO;
 import co.edu.uniquindio.proyecto.modelo.Usuario;
@@ -21,6 +22,5 @@ public interface UsuarioService {
     List<UsuarioResponseDTO> listarUsuarios ();
 
     String obtenerCorreoPorID(int usuario);
-
 
 }

@@ -3,6 +3,7 @@ package co.edu.uniquindio.proyecto.controladores;
 
 import co.edu.uniquindio.proyecto.dto.Mensaje.MensajeDTO;
 import co.edu.uniquindio.proyecto.dto.sesion.SesionDTO;
+import co.edu.uniquindio.proyecto.dto.token.TokenDTO;
 import co.edu.uniquindio.proyecto.dto.usuario.UsuarioDTO;
 import co.edu.uniquindio.proyecto.services.interfaces.SesionService;
 import co.edu.uniquindio.proyecto.services.interfaces.UsuarioService;
@@ -32,5 +33,10 @@ public class AuthController {
     public ResponseEntity<MensajeDTO> registrarCliente(@Valid @RequestBody UsuarioDTO usuario) throws Exception{
         usuarioService.CreateUser(usuario);
         return ResponseEntity.status(HttpStatus.CREATED).body(new MensajeDTO(HttpStatus.CREATED,false,"Cliente creado correctamente"));
+    }
+
+    @PostMapping("/refreseh")
+    public ResponseEntity<MensajeDTO> refresh(@Valid @RequestBody TokenDTO tokenDTO) throws Exception {
+        return ResponseEntity.status(HttpStatus.OK).body( new MensajeDTO(HttpStatus.OK,false,sesionService.refreshToken(tokenDTO)));
     }
 }

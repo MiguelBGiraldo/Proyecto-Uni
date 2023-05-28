@@ -35,4 +35,6 @@ public class UsuarioController {
     public ResponseEntity<MensajeDTO> actualizar(@PathVariable int codigo, @Valid @RequestBody UsuarioDTO usuario) throws Exception{
         return ResponseEntity.status(HttpStatus.OK).body(new MensajeDTO(HttpStatus.OK,false,usuarioService.updateUser(codigo,usuario)));
     }
+
+
 }

@@ -2,6 +2,8 @@ package co.edu.uniquindio.proyecto.services.interfaces;
 
 import co.edu.uniquindio.proyecto.dto.producto.ProductoDTO;
 import co.edu.uniquindio.proyecto.dto.producto.ProductoResponseDTO;
+import co.edu.uniquindio.proyecto.dto.respuestas.CantidadProductosCategoriaDTO;
+import co.edu.uniquindio.proyecto.dto.respuestas.CaroBaratoDTO;
 import co.edu.uniquindio.proyecto.modelo.Categoria;
 import co.edu.uniquindio.proyecto.modelo.Estado;
 import co.edu.uniquindio.proyecto.modelo.Producto;
@@ -47,6 +49,14 @@ public interface ProductoService {
     List<ProductoResponseDTO> listarProductosNombre(String nombre);
 
     int  obtenerUsuario(int codigo);
+
+    ProductoResponseDTO convertir(Producto producto);
+
+    //List<ProductoResponseDTO> listarProductosComprados(int codigo) throws  Exception;
+
+   // List<CantidadProductosCategoriaDTO> listarCantidadCategorias() throws Exception;
+
+    //List<Producto> listarProductosCaroyBaratoCategoria(Categoria categoria) throws Exception;
 
 
         //List<ProductoDTO> productosListCategory(Categoria categoria);

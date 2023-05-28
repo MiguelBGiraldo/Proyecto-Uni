@@ -2,10 +2,13 @@ package co.edu.uniquindio.proyecto.services.implementacion;
 
 import co.edu.uniquindio.proyecto.dto.producto.ProductoDTO;
 import co.edu.uniquindio.proyecto.dto.producto.ProductoResponseDTO;
+import co.edu.uniquindio.proyecto.dto.respuestas.CantidadProductosCategoriaDTO;
+import co.edu.uniquindio.proyecto.dto.respuestas.CaroBaratoDTO;
 import co.edu.uniquindio.proyecto.dto.usuario.UsuarioDTO;
 import co.edu.uniquindio.proyecto.modelo.*;
 import co.edu.uniquindio.proyecto.repositorios.FavoritoRepo;
 import co.edu.uniquindio.proyecto.repositorios.ProductoRepo;
+import co.edu.uniquindio.proyecto.repositorios.UsuarioRepo;
 import co.edu.uniquindio.proyecto.services.interfaces.ProductoService;
 
 /*
@@ -20,6 +23,7 @@ import co.edu.uniquindio.unimarket.servicios.interfaces.ProductoServicio;
 import co.edu.uniquindio.unimarket.servicios.interfaces.UsuarioServicio;*/
 import co.edu.uniquindio.proyecto.services.interfaces.UsuarioService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -44,13 +48,20 @@ public class ProductoServicioImpl implements ProductoService {
     @Override
     public int createProducto(ProductoDTO productoDTO) throws Exception {
 
+        if(productoDTO.getImagenes().size() <= 0)
+            throw new Exception("El producto debe tener asociada almenos una categoria");
+
+        if(productoDTO.getImagenes().size() <= 0)
+            throw new Exception("El producto debe tener asociada almenos una imagena");
+
+
         Producto producto = new Producto();
         producto.setNombre(productoDTO.getNombre());
         producto.setDescripcion(productoDTO.getDescripcion());
         producto.setUnidades(productoDTO.getUnidades());
         producto.setPrecio(productoDTO.getPrecio());
         producto.setUsuario(usuarioServicio.obtener(productoDTO.getCodigoVendedor()));
-        //producto.setImagen(productoDTO.getImagenes());
+        producto.setImagen(productoDTO.getImagenes());
         producto.setCategoria(productoDTO.getCategorias());
         producto.setEstado(Estado.ESPERA);
         producto.setFechaCreado(LocalDateTime.now());
@@ -180,7 +191,7 @@ public class ProductoServicioImpl implements ProductoService {
 
     public List<ProductoResponseDTO> listarProductos() {
 
-        List<Producto> lista =  productoRepo.findAll(PageRequest.of(0,10)).toList();
+        List<Producto> lista =  productoRepo.findAll(PageRequest.of(0,20)).toList();
         List<ProductoResponseDTO> respuesta = new ArrayList<>();
         for (Producto p : lista) {
             respuesta.add(convertir(p));
@@ -190,11 +201,14 @@ public class ProductoServicioImpl implements ProductoService {
 
 
 
-    private ProductoResponseDTO convertir(Producto producto) {
+    public ProductoResponseDTO convertir(Producto producto) {
 
         ProductoResponseDTO productoGetDTO = new ProductoResponseDTO();
 
         productoGetDTO.setCodigo(producto.getCodigo());
+        productoGetDTO.setCodigoVendedor(producto.getUsuario().getCedula());
+        productoGetDTO.setCategorias(producto.getCategoria());
+        productoGetDTO.setImagenes(producto.getImagen());
         productoGetDTO.setEstado(producto.getEstado());
         productoGetDTO.setFechaLimite(producto.getFechaLimite());
         productoGetDTO.setNombre(producto.getNombre());
@@ -356,4 +370,43 @@ public class ProductoServicioImpl implements ProductoService {
         }
 
     }
+
+  /*  public List<ProductoResponseDTO> listarProductosComprados(int codigo) throws  Exception{
+
+       Usuario buscado = usuarioServicio.obtener(codigo);
+
+        List<Producto> productos = productoRepo.obtenerProductosComprados(codigo);
+
+        List<ProductoResponseDTO> respuesta = new ArrayList<>();
+        for(Producto p : productos){
+            respuesta.add(convertir(p));
+        }
+
+        return respuesta;
+    }*/
+
+   /* public List<CantidadProductosCategoriaDTO> listarCantidadCategorias(){
+
+        List<Object[]> consulta = productoRepo.obtenerCantidadCategoria();
+
+
+        List<CantidadProductosCategoriaDTO> respuesta = new ArrayList<>();
+
+        for(Object[] c : consulta){
+            respuesta.add(new CantidadProductosCategoriaDTO((Categoria) c[0],(Long) c[1]));
+        }
+        return respuesta;
+    }*/
+
+    /*public List<Producto> listarProductosCaroyBaratoCategoria(Categoria categoria) throws Exception{
+
+
+        Producto caro = productoRepo.obtenerProductoMasCaro(categoria, PageRequest.of(0,1));
+        Producto barato = productoRepo.obtenerProductoMasBarato(categoria, PageRequest.of(0, 1));
+        List<Producto> productos  = new ArrayList<>();
+        productos.add(caro);
+        productos.add(barato);
+
+        return  productos;
+    }*/
 }
